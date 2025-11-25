@@ -6,11 +6,17 @@ This project implements a rainfall prediction system specifically designed for B
 
 ### ✨ Features
 🌍 Multi-Station Support: Covers 35 weather stations across Bangladesh
+
 🤖 ML-Powered: CatBoost model with 87.03% accuracy and 94.52% AUC
+
 📱 Responsive UI: Bootstrap-based interface optimized for all devices
+
 🔮 Smart Predictions: Rainfall probability with meaningful recommendations
+
 ⏰ Real-time Data: Integrates with OpenWeatherMap API for historical data
+
 📊 Advanced Features: 28 engineered features including temporal, cyclic, and lag patterns
+
 🎥 Demo
 
 <img width="731" height="685" alt="image" src="https://github.com/user-attachments/assets/c5847016-7ef8-4291-8338-8fff0276c8ec" />
@@ -20,6 +26,7 @@ Live Demo: [Coming Soon]
 
 ### 🛠️ Installation
 Prerequisites
+
 Python 3.8+
 
 OpenWeatherMap API key
@@ -37,10 +44,15 @@ OpenWeatherMap API key
 
 ### Prediction Interpretation
 Probability Range	Message	Recommendation
+
 80%+	High chance of rainfall	Strongly recommend carrying umbrella
+
 60-79%	Moderate to high chance	Better to be prepared with rain protection
+
 40-59%	Some possibility	Keep an eye on weather updates
+
 20-39%	Low chance	Light showers possible
+
 <20%	Very low chance	Enjoy the dry weather
 
 ### 📊 Model Performance 
@@ -60,7 +72,10 @@ The CatBoost classifier demonstrates excellent performance:
 
 ### 🙏 Acknowledgments
 Bangladesh Meteorological Department for weather data
+
 OpenWeatherMap for API services
+
 CatBoost for the powerful ML framework
+
 Bootstrap for the responsive UI components
 
