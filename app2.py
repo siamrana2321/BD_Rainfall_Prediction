@@ -12,7 +12,7 @@ app = Flask(__name__)
 model = joblib.load('./bd_weather_output/best_cat.joblib')  # Make sure to save your model with this name
 
 # OpenWeatherMap API configuration
-API_KEY = "857bdad641036088f41b75bbc0231647"  # Replace with your actual API key
+API_KEY = "API"  # Replace with your actual API key
 BASE_URL = "http://api.openweathermap.org/data/2.5/onecall"
 
 def get_historical_weather(lat, lon):
@@ -240,4 +240,5 @@ def predict():
         })
 
 if __name__ == '__main__':
+
     app.run(debug=True)
