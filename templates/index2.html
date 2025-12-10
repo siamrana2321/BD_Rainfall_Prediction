@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rainfall Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .card {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: none;
+            border-radius: 15px;
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #0984e3, #74b9ff);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-weight: 600;
+        }
+        .result-card {
+            background: linear-gradient(45deg, #00b894, #55efc4);
+            color: white;
+            border-radius: 15px;
+        }
+        .advisory-card {
+            background: linear-gradient(45deg, #ffeaa7, #fdcb6e);
+            border-radius: 15px;
+        }
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 12px;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #74b9ff;
+            box-shadow: 0 0 0 0.2rem rgba(116, 185, 255, 0.25);
+        }
+        .advisory-item {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+        .advisory-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card mt-5">
+                    <div class="card-body p-5">
+                        <h1 class="text-center mb-4">🌧️ Bangladesh Rainfall Prediction</h1>
+                        <p class="text-center text-muted mb-4">Enter weather details to predict rainfall probability with crop advisories</p>
+                        
+                        <form id="predictionForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Weather Station</label>
+                                    <select class="form-select" name="station" required>
+                                        <option value="">Select a weather station</option>
+                                        <option value="Ambaganctg">Ambaganctg</option>
+                                        <option value="Barisal">Barisal</option>
+                                        <option value="Bhola">Bhola</option>
+                                        <option value="Bogra">Bogra</option>
+                                        <option value="Chandpur">Chandpur</option>
+                                        <option value="Chittagong">Chittagong</option>
+                                        <option value="Chuadanga">Chuadanga</option>
+                                        <option value="Comilla">Comilla</option>
+                                        <option value="Coxsbazar">Coxsbazar</option>
+                                        <option value="Dhaka">Dhaka</option>
+                                        <option value="Dinajpur">Dinajpur</option>
+                                        <option value="Faridpur">Faridpur</option>
+                                        <option value="Feni">Feni</option>
+                                        <option value="Hatiya">Hatiya</option>
+                                        <option value="Ishurdi">Ishurdi</option>
+                                        <option value="Jessore">Jessore</option>
+                                        <option value="Khepupara">Khepupara</option>
+                                        <option value="Khulna">Khulna</option>
+                                        <option value="Kutubdia">Kutubdia</option>
+                                        <option value="Madaripur">Madaripur</option>
+                                        <option value="Mcourt">Mcourt</option>
+                                        <option value="Mongla">Mongla</option>
+                                        <option value="Mymensingh">Mymensingh</option>
+                                        <option value="Patuakhali">Patuakhali</option>
+                                        <option value="Rajshahi">Rajshahi</option>
+                                        <option value="Rangamati">Rangamati</option>
+                                        <option value="Rangpur">Rangpur</option>
+                                        <option value="Sandwip">Sandwip</option>
+                                        <option value="Satkhira">Satkhira</option>
+                                        <option value="Sitakunda">Sitakunda</option>
+                                        <option value="Srimangal">Srimangal</option>
+                                        <option value="Sydpur">Sydpur</option>
+                                        <option value="Sylhet">Sylhet</option>
+                                        <option value="Tangail">Tangail</option>
+                                        <option value="Teknaf">Teknaf</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Date</label>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <input type="number" class="form-control" name="year" placeholder="Year" min="2000" max="2030" required>
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="number" class="form-control" name="month" placeholder="Month" min="1" max="12" required>
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="number" class="form-control" name="day" placeholder="Day" min="1" max="31" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Sunshine Hours</label>
+                                    <input type="number" class="form-control" name="sunshine" placeholder="Hours of sunshine" step="0.1" min="0" max="24" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Humidity (%)</label>
+                                    <input type="number" class="form-control" name="humidity" placeholder="Relative humidity" min="0" max="100" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Temperature (°C)</label>
+                                    <input type="number" class="form-control" name="temperature" placeholder="Temperature in Celsius" step="0.1" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Latitude</label>
+                                    <input type="number" class="form-control" name="latitude" placeholder="e.g., 23.8103" step="0.0001" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Longitude</label>
+                                    <input type="number" class="form-control" name="longitude" placeholder="e.g., 90.4125" step="0.0001" required>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    Predict Rainfall & Get Crop Advice
+                                </button>
+                            </div>
+                        </form>
+
+                        <div id="result" class="mt-4" style="display: none;">
+                            <div class="result-card p-4 text-center mb-4">
+                                <h3>Prediction Result</h3>
+                                <div id="probability" class="display-4 fw-bold my-3"></div>
+                                <div id="message" class="fs-5 mb-3"></div>
+                                <div id="stationInfo" class="text-muted"></div>
+                            </div>
+
+                            <div class="advisory-card p-4">
+                                <h4 class="text-center mb-3">🌱 Agricultural Advisory</h4>
+                                <div id="cropAdvisories"></div>
+                            </div>
+                        </div>
+
+                        <div id="error" class="alert alert-danger mt-4" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const resultDiv = document.getElementById('result');
+            const errorDiv = document.getElementById('error');
+            
+            // Hide previous results
+            resultDiv.style.display = 'none';
+            errorDiv.style.display = 'none';
+            
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('probability').textContent = data.rainfall_probability + '%';
+                    document.getElementById('message').textContent = data.message;
+                    document.getElementById('stationInfo').textContent = `Station: ${data.station} | Temperature: ${data.temperature}°C | Humidity: ${data.humidity}%`;
+                    
+                    // Display crop advisories
+                    const advisoriesDiv = document.getElementById('cropAdvisories');
+                    advisoriesDiv.innerHTML = '';
+                    
+                    data.crop_advisories.forEach(advice => {
+                        const adviceItem = document.createElement('div');
+                        adviceItem.className = 'advisory-item';
+                        adviceItem.innerHTML = advice;
+                        advisoriesDiv.appendChild(adviceItem);
+                    });
+                    
+                    resultDiv.style.display = 'block';
+                } else {
+                    errorDiv.textContent = 'Error: ' + data.error;
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                errorDiv.textContent = 'Network error: ' + error.message;
+                errorDiv.style.display = 'block';
+            }
+        });
+
+        // Set current date as default
+        const today = new Date();
+        document.querySelector('input[name="year"]').value = today.getFullYear();
+        document.querySelector('input[name="month"]').value = today.getMonth() + 1;
+        document.querySelector('input[name="day"]').value = today.getDate();
+    </script>
+</body>
+</html>
